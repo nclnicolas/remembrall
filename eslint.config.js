@@ -37,6 +37,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
 
       "react/jsx-uses-vars": "error",
+      "react/prop-types": "off",
 
       "react-refresh/only-export-components": [
         "warn",
