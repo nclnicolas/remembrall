@@ -1,7 +1,10 @@
+/* Breakpoint de referencia: 768px (mobile < 768px, tablet y desktop >= 768px).
+   Debe mantenerse igual en Sidebar.css y MobileHeader.css. */
 .layout {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .layout-content {
@@ -13,10 +16,24 @@
 
 .layout-main {
   flex: 1 1 auto;
+  padding: 16px;
+  overflow-wrap: anywhere;
 }
 
 .layout-backdrop {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .layout-main {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-main {
+    padding: 32px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -25,7 +42,7 @@
     position: fixed;
     inset: 0;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--overlay);
   }
 
   body:has(.layout.menu-open) {
