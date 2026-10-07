@@ -1,9 +1,52 @@
-import { NavLink } from 'react-router-dom'
+import { useId, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import { NAV_ITEMS, ROUTES } from '../../constants/navigation'
 import './Sidebar.css'
 
 function navLinkClassName({ isActive }) {
   return isActive ? 'sidebar-link active' : 'sidebar-link'
+}
+
+// Grupo de links que se puede expandir o contraer. Arranca abierto.
+// Si se navega a uno de sus links estando cerrado, se abre para mostrar el link activo.
+function SidebarGroup({ item, onNavigate }) {
+  const { pathname } = useLocation()
+  const listId = useId()
+  const [isExpanded, setIsExpanded] = useState(true)
+  const [previousPathname, setPreviousPathname] = useState(pathname)
+
+  if (pathname !== previousPathname) {
+    setPreviousPathname(pathname)
+    if (item.children.some((child) => child.path === pathname)) {
+      setIsExpanded(true)
+    }
+  }
+
+  return (
+    <div className="sidebar-group">
+      <button
+        type="button"
+        className="sidebar-group-toggle"
+        onClick={() => setIsExpanded((current) => !current)}
+        aria-expanded={isExpanded}
+        aria-controls={listId}
+      >
+        {item.label}
+      </button>
+      <div id={listId} className="sidebar-group-links" hidden={!isExpanded}>
+        {item.children.map((child) => (
+          <NavLink
+            key={child.path}
+            to={child.path}
+            className={navLinkClassName}
+            onClick={onNavigate}
+          >
+            {child.label}
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 function Sidebar({ isOpen, onClose, onCreateReminder }) {
@@ -46,19 +89,7 @@ function Sidebar({ isOpen, onClose, onCreateReminder }) {
       <nav className="sidebar-nav">
         {NAV_ITEMS.map((item) =>
           item.children ? (
-            <div className="sidebar-group" key={item.label}>
-              <span className="sidebar-group-label">{item.label}</span>
-              {item.children.map((child) => (
-                <NavLink
-                  key={child.path}
-                  to={child.path}
-                  className={navLinkClassName}
-                  onClick={onClose}
-                >
-                  {child.label}
-                </NavLink>
-              ))}
-            </div>
+            <SidebarGroup key={item.label} item={item} onNavigate={onClose} />
           ) : (
             <NavLink
               key={item.path}

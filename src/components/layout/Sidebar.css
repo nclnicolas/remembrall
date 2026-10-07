@@ -37,8 +37,43 @@
   gap: 4px;
 }
 
-.sidebar-group-label {
+.sidebar-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
   font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-group-toggle:hover:not(:disabled) {
+  background: none;
+  color: var(--primary);
+}
+
+.sidebar-group-toggle::after {
+  content: '▾';
+}
+
+.sidebar-group-toggle[aria-expanded='false']::after {
+  content: '▸';
+}
+
+.sidebar-group-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* display:flex pisaría el estilo por defecto de [hidden]. */
+.sidebar-group-links[hidden] {
+  display: none;
 }
 
 .sidebar-group .sidebar-link {
@@ -89,7 +124,8 @@
   }
 
   .sidebar-logo,
-  .sidebar-link {
+  .sidebar-link,
+  .sidebar-group-toggle {
     display: flex;
     align-items: center;
     min-height: 44px;
