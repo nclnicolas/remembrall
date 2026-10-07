@@ -1,0 +1,41 @@
+.modal {
+  width: min(32rem, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow);
+}
+
+.modal::backdrop {
+  background: var(--overlay);
+}
+
+.modal-content {
+  max-height: calc(100dvh - 34px);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-close {
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+body:has(.modal[open]) {
+  overflow: hidden;
+}

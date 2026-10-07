@@ -6,7 +6,12 @@ function navLinkClassName({ isActive }) {
   return isActive ? 'sidebar-link active' : 'sidebar-link'
 }
 
-function Sidebar({ isOpen, onClose }) {
+function Sidebar({ isOpen, onClose, onCreateReminder }) {
+  function handleCreateReminder() {
+    onClose()
+    onCreateReminder()
+  }
+
   return (
     <aside
       id="app-sidebar"
@@ -30,7 +35,11 @@ function Sidebar({ isOpen, onClose }) {
         </button>
       </div>
 
-      <button type="button" className="sidebar-new-reminder" disabled>
+      <button
+        type="button"
+        className="sidebar-new-reminder"
+        onClick={handleCreateReminder}
+      >
         + New Reminder
       </button>
 

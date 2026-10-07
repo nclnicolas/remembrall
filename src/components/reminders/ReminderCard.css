@@ -1,0 +1,69 @@
+.reminder-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.reminder-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reminder-card-title {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.reminder-card-status {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.reminder-card-status.is-completed {
+  color: var(--success);
+}
+
+.reminder-card-description {
+  display: -webkit-box;
+  margin: 8px 0 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  white-space: pre-line;
+}
+
+.reminder-card-due-date {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.reminder-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.reminder-card-actions button {
+  min-height: 44px;
+}
+
+.reminder-card-delete {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.reminder-card-error {
+  margin: 8px 0 0;
+  color: var(--error);
+  font-size: 0.875rem;
+}

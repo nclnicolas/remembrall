@@ -1,0 +1,15 @@
+.reminder-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reminder-empty {
+  padding: 24px 0;
+}
+
+.reminder-empty button {
+  min-height: 44px;
+}

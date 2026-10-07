@@ -112,3 +112,9 @@
     transition: none;
   }
 }
+
+@media (max-width: 767px) {
+  .sidebar-new-reminder {
+    min-height: 44px;
+  }
+}

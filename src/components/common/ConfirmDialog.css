@@ -1,0 +1,37 @@
+.confirm-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.confirm-dialog p {
+  margin: 0;
+}
+
+.confirm-dialog-error {
+  color: var(--error);
+  font-size: 0.875rem;
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.confirm-dialog-actions button {
+  min-height: 44px;
+}
+
+/* --on-primary contrasta con --error en ambos temas (blanco en claro, negro en oscuro). */
+.confirm-dialog-confirm {
+  border-color: var(--error);
+  background: var(--error);
+  color: var(--on-primary);
+}
+
+.confirm-dialog-confirm:hover:not(:disabled) {
+  background: var(--error);
+  filter: brightness(0.9);
+}

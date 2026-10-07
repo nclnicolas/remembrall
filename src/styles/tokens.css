@@ -10,6 +10,7 @@
   --primary: #1d4ed8;
   --on-primary: #ffffff;
   --border: #d4d4d4;
+  --border-strong: #757575;
   --success: #166534;
   --warning: #92400e;
   --error: #b91c1c;
@@ -30,6 +31,7 @@
   --primary: #60a5fa;
   --on-primary: #000000;
   --border: #2e2e2e;
+  --border-strong: #737373;
   --success: #4ade80;
   --warning: #fbbf24;
   --error: #f87171;
@@ -53,6 +55,7 @@
     --primary: #60a5fa;
     --on-primary: #000000;
     --border: #2e2e2e;
+    --border-strong: #737373;
     --success: #4ade80;
     --warning: #fbbf24;
     --error: #f87171;
