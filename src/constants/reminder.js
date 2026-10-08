@@ -23,3 +23,6 @@ export const SERVICE_ERRORS = {
 }
 
 export const REMINDERS_STORAGE_KEY = 'remembrall.reminders'
+
+// Tipo de dato con el que se arrastra un recordatorio entre columnas del Dashboard.
+export const REMINDER_DRAG_TYPE = 'application/x-remembrall-reminder-id'

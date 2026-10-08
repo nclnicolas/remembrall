@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { formatDateOnly, isValidDateOnly, isValidTimestamp } from './date'
+import {
+  formatDateOnly,
+  formatTimestamp,
+  isValidDateOnly,
+  isValidTimestamp,
+} from './date'
 
 describe('isValidDateOnly', () => {
   it('acepta fechas reales en formato YYYY-MM-DD', () => {
@@ -34,5 +39,17 @@ describe('isValidTimestamp', () => {
     expect(isValidTimestamp('2026-10-05T12:00:00.000Z')).toBe(true)
     expect(isValidTimestamp('no es fecha')).toBe(false)
     expect(isValidTimestamp(null)).toBe(false)
+  })
+})
+
+describe('formatTimestamp', () => {
+  it('formatea como dd/mm/yyyy en la fecha local', () => {
+    const value = new Date(2026, 8, 8, 12, 0, 0).toISOString()
+    expect(formatTimestamp(value)).toBe('08/09/2026')
+  })
+
+  it('devuelve texto vacío si el valor no es una fecha válida', () => {
+    expect(formatTimestamp('no es fecha')).toBe('')
+    expect(formatTimestamp(null)).toBe('')
   })
 })

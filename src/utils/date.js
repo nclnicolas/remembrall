@@ -30,3 +30,13 @@ export function formatDateOnly(value) {
 export function isValidTimestamp(value) {
   return typeof value === 'string' && !Number.isNaN(Date.parse(value))
 }
+
+// "2026-09-08T15:00:00.000Z" -> "08/09/2026" en la fecha local del usuario.
+export function formatTimestamp(value) {
+  if (!isValidTimestamp(value)) return ''
+
+  const date = new Date(value)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  return `${day}/${month}/${date.getFullYear()}`
+}

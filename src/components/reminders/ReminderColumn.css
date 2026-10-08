@@ -1,0 +1,28 @@
+.reminder-column {
+  min-height: 8rem;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-secondary);
+}
+
+.reminder-column.is-drag-over {
+  border-color: var(--primary);
+  outline: 2px dashed var(--primary);
+  outline-offset: 2px;
+}
+
+.reminder-column-title {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+}
+
+.reminder-column-error {
+  margin: 0 0 12px;
+  color: var(--error);
+  font-size: 0.875rem;
+}
+
+.reminder-column .reminder-empty {
+  padding: 8px 0;
+}

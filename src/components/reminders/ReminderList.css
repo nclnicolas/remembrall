@@ -13,3 +13,11 @@
 .reminder-empty button {
   min-height: 44px;
 }
+
+.reminder-list-item.is-draggable {
+  cursor: grab;
+}
+
+.reminder-list-item.is-dragging {
+  opacity: 0.5;
+}

@@ -14,10 +14,16 @@ const es = {
     statusCompleted: 'Completado',
     edit: 'Editar',
     delete: 'Eliminar',
+    completedAt: 'Completado',
     complete: 'Completar',
     reopen: 'Volver a pendiente',
     statusError:
       'No se pudo cambiar el estado. Revisá que el navegador permita guardar datos e intentá de nuevo.',
+  },
+  dashboard: {
+    intro: 'Creá tus recordatorios y organizá tu trabajo.',
+    pendingTitle: 'Pendientes',
+    completedTitle: 'Completados',
   },
   deleteDialog: {
     title: '¿Eliminar recordatorio?',

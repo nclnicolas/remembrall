@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import { REMINDER_STATUS, SERVICE_ERRORS } from '../../constants/reminder'
 import useTexts from '../../hooks/useTexts'
-import { formatDateOnly } from '../../utils/date'
+import { formatDateOnly, formatTimestamp } from '../../utils/date'
 import './ReminderCard.css'
 
-function ReminderCard({ reminder, onStatusChange, onEdit, onDelete }) {
+function ReminderCard({
+  reminder,
+  titleTag: TitleTag = 'h2',
+  onStatusChange,
+  onEdit,
+  onDelete,
+}) {
   const texts = useTexts()
   const [hasStatusError, setHasStatusError] = useState(false)
   const isCompleted = reminder.status === REMINDER_STATUS.COMPLETED
@@ -25,7 +31,7 @@ function ReminderCard({ reminder, onStatusChange, onEdit, onDelete }) {
   return (
     <article className="reminder-card">
       <div className="reminder-card-header">
-        <h2 className="reminder-card-title">{reminder.title}</h2>
+        <TitleTag className="reminder-card-title">{reminder.title}</TitleTag>
         <span
           className={
             isCompleted
@@ -46,6 +52,12 @@ function ReminderCard({ reminder, onStatusChange, onEdit, onDelete }) {
       {reminder.dueDate && (
         <p className="reminder-card-due-date">
           {texts.reminders.dueDate}: {formatDateOnly(reminder.dueDate)}
+        </p>
+      )}
+
+      {isCompleted && reminder.completedAt && (
+        <p className="reminder-card-completed-at">
+          {texts.reminders.completedAt}: {formatTimestamp(reminder.completedAt)}
         </p>
       )}
 
