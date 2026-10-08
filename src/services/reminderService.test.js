@@ -194,3 +194,51 @@ describe('delete con fallo de almacenamiento', () => {
     expect(reminderService.getById(reminder.id)).toEqual(reminder)
   })
 })
+
+describe('purgeExpired', () => {
+  const DAY = 24 * 60 * 60 * 1000
+
+  function completeAt(id, daysAgo) {
+    vi.setSystemTime(new Date(Date.now() - daysAgo * DAY))
+    reminderService.setStatus(id, 'completed')
+    vi.setSystemTime(new Date('2026-10-05T10:00:00.000Z'))
+  }
+
+  it('elimina solo los completados con 30 días o más y devuelve la cantidad', () => {
+    const old = reminderService.create({ title: 'Viejo' }).reminder
+    const recent = reminderService.create({ title: 'Reciente' }).reminder
+    const pending = reminderService.create({ title: 'Pendiente' }).reminder
+    completeAt(old.id, 31)
+    completeAt(recent.id, 29)
+
+    expect(reminderService.purgeExpired()).toEqual({ ok: true, removed: 1 })
+    const ids = reminderService.getAll().map((reminder) => reminder.id)
+    expect(ids).toContain(recent.id)
+    expect(ids).toContain(pending.id)
+    expect(ids).not.toContain(old.id)
+  })
+
+  it('no escribe nada si no hay vencidos', () => {
+    reminderService.create({ title: 'A' })
+    storage.failWrites = true
+    expect(reminderService.purgeExpired()).toEqual({ ok: true, removed: 0 })
+  })
+
+  it('informa error de almacenamiento si no puede guardar', () => {
+    const old = reminderService.create({ title: 'Viejo' }).reminder
+    completeAt(old.id, 31)
+    storage.failWrites = true
+    expect(reminderService.purgeExpired()).toEqual({ ok: false, error: 'storage' })
+    storage.failWrites = false
+    expect(reminderService.getById(old.id)).not.toBeNull()
+  })
+})
+
+describe('getAll con ids repetidos', () => {
+  it('conserva solo la primera aparición de cada id', () => {
+    const { reminder } = reminderService.create({ title: 'Original' })
+    const copy = { ...reminder, title: 'Copia' }
+    storage.data.set(REMINDERS_STORAGE_KEY, JSON.stringify([reminder, copy]))
+    expect(reminderService.getAll()).toEqual([reminder])
+  })
+})

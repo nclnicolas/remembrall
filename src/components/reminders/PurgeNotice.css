@@ -1,0 +1,21 @@
+.purge-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 8px 8px 8px 16px;
+  border: 1px solid var(--info);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.purge-notice p {
+  margin: 0;
+}
+
+.purge-notice button {
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+}

@@ -2,10 +2,16 @@ import { useState } from 'react'
 import { REMINDER_STATUS, SERVICE_ERRORS } from '../../constants/reminder'
 import useTexts from '../../hooks/useTexts'
 import { formatDateOnly, formatTimestamp } from '../../utils/date'
+import {
+  getExpirationTimestamp,
+  getPendingDays,
+  needsAttention,
+} from '../../utils/reminderRules'
 import './ReminderCard.css'
 
 function ReminderCard({
   reminder,
+  now = null,
   titleTag: TitleTag = 'h2',
   onStatusChange,
   onEdit,
@@ -14,6 +20,8 @@ function ReminderCard({
   const texts = useTexts()
   const [hasStatusError, setHasStatusError] = useState(false)
   const isCompleted = reminder.status === REMINDER_STATUS.COMPLETED
+  const requiresAttention = now !== null && needsAttention(reminder, now)
+  const expirationTimestamp = getExpirationTimestamp(reminder)
 
   // Pendiente pasa a completado y viceversa. Si sale bien, la card cambia de lista.
   function handleStatusChange() {
@@ -29,7 +37,11 @@ function ReminderCard({
     : texts.reminders.complete
 
   return (
-    <article className="reminder-card">
+    <article
+      className={
+        requiresAttention ? 'reminder-card needs-attention' : 'reminder-card'
+      }
+    >
       <div className="reminder-card-header">
         <TitleTag className="reminder-card-title">{reminder.title}</TitleTag>
         <span
@@ -55,9 +67,23 @@ function ReminderCard({
         </p>
       )}
 
+      {requiresAttention && (
+        <p className="reminder-card-attention">
+          <span aria-hidden="true">⚠ </span>
+          {texts.reminders.attention} ·{' '}
+          {texts.reminders.pendingFor(getPendingDays(reminder, now))}
+        </p>
+      )}
+
       {isCompleted && reminder.completedAt && (
         <p className="reminder-card-completed-at">
           {texts.reminders.completedAt}: {formatTimestamp(reminder.completedAt)}
+        </p>
+      )}
+
+      {expirationTimestamp && (
+        <p className="reminder-card-expiration">
+          {texts.reminders.expiresOn} {formatTimestamp(expirationTimestamp)}
         </p>
       )}
 

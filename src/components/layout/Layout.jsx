@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import PurgeNotice from '../reminders/PurgeNotice'
 import ReminderDeleteDialog from '../reminders/ReminderDeleteDialog'
 import ReminderFormDialog from '../reminders/ReminderFormDialog'
 import MobileHeader from './MobileHeader'
@@ -50,6 +51,7 @@ function Layout() {
       <div className="layout-content">
         <MobileHeader isMenuOpen={isMenuOpen} onMenuClick={openMenu} />
         <main className="layout-main">
+          <PurgeNotice />
           <Outlet
             context={{
               onCreateReminder: openReminderForm,

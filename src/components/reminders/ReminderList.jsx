@@ -1,4 +1,5 @@
 import { REMINDER_DRAG_TYPE } from '../../constants/reminder'
+import useReminders from '../../hooks/useReminders'
 import useTexts from '../../hooks/useTexts'
 import ReminderCard from './ReminderCard'
 import './ReminderList.css'
@@ -17,6 +18,7 @@ function ReminderList({
   onDelete,
 }) {
   const texts = useTexts()
+  const { now } = useReminders()
 
   function handleDragStart(event, reminder) {
     const item = event.currentTarget
@@ -55,6 +57,7 @@ function ReminderList({
         >
           <ReminderCard
             reminder={reminder}
+            now={now}
             titleTag={titleTag}
             onStatusChange={onStatusChange}
             onEdit={onEdit}

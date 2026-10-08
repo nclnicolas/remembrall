@@ -26,3 +26,9 @@ export const REMINDERS_STORAGE_KEY = 'remembrall.reminders'
 
 // Tipo de dato con el que se arrastra un recordatorio entre columnas del Dashboard.
 export const REMINDER_DRAG_TYPE = 'application/x-remembrall-reminder-id'
+
+// Un pendiente requiere atención a los 3 días de su creación (reloj de 24 h por día).
+export const ATTENTION_AFTER_DAYS = 3
+
+// Los completados se conservan 30 días desde que se completaron.
+export const COMPLETED_RETENTION_DAYS = 30

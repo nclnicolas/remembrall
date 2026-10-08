@@ -41,7 +41,8 @@
 }
 
 .reminder-card-due-date,
-.reminder-card-completed-at {
+.reminder-card-completed-at,
+.reminder-card-expiration {
   margin: 8px 0 0;
   color: var(--text-secondary);
   font-size: 0.875rem;
@@ -67,4 +68,15 @@
   margin: 8px 0 0;
   color: var(--error);
   font-size: 0.875rem;
+}
+
+.reminder-card.needs-attention {
+  border-color: var(--warning);
+}
+
+.reminder-card-attention {
+  margin: 8px 0 0;
+  color: var(--warning);
+  font-size: 0.875rem;
+  font-weight: bold;
 }

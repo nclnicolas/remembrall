@@ -9,17 +9,25 @@ import {
   changeReminderStatus,
   isValidReminder,
 } from '../utils/reminder'
+import { isExpiredCompleted } from '../utils/reminderRules'
 import { validateReminderInput } from '../utils/reminderValidation'
 import storageService from './storageService'
 
 const NOT_FOUND = { ok: false, error: SERVICE_ERRORS.NOT_FOUND }
 const STORAGE_FAILURE = { ok: false, error: SERVICE_ERRORS.STORAGE }
 
-// Descarta entradas inválidas: un almacenamiento corrupto no debe romper la app.
-// El siguiente guardado no las conserva.
+// Descarta entradas inválidas y ids repetidos (se conserva la primera): un
+// almacenamiento corrupto no debe romper la app. El siguiente guardado no las conserva.
 function getAll() {
   const stored = storageService.get(REMINDERS_STORAGE_KEY, [])
-  return Array.isArray(stored) ? stored.filter(isValidReminder) : []
+  if (!Array.isArray(stored)) return []
+
+  const seenIds = new Set()
+  return stored.filter((reminder) => {
+    if (!isValidReminder(reminder) || seenIds.has(reminder.id)) return false
+    seenIds.add(reminder.id)
+    return true
+  })
 }
 
 function getById(id) {
@@ -103,6 +111,19 @@ function remove(id) {
     : STORAGE_FAILURE
 }
 
+// Elimina los completados que superaron el plazo de permanencia.
+// Devuelve cuántos se eliminaron; si no hay ninguno, no escribe nada.
+function purgeExpired(now = new Date()) {
+  const reminders = getAll()
+  const remaining = reminders.filter(
+    (reminder) => !isExpiredCompleted(reminder, now),
+  )
+  const removed = reminders.length - remaining.length
+  if (removed === 0) return { ok: true, removed }
+
+  return saveAll(remaining) ? { ok: true, removed } : STORAGE_FAILURE
+}
+
 const reminderService = {
   getAll,
   getById,
@@ -110,6 +131,7 @@ const reminderService = {
   update,
   setStatus,
   delete: remove,
+  purgeExpired,
 }
 
 export default reminderService

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { REMINDER_STATUS, SERVICE_ERRORS } from '../constants/reminder'
 import reminderService from '../services/reminderService'
 import {
@@ -9,6 +9,36 @@ import { RemindersContext } from './RemindersContext'
 
 function RemindersProvider({ children }) {
   const [reminders, setReminders] = useState(() => reminderService.getAll())
+  // Hora de referencia de las reglas de tiempo; se refresca al volver a la pestaña.
+  const [now, setNow] = useState(() => new Date())
+  const [purgedCount, setPurgedCount] = useState(0)
+
+  // Elimina los completados vencidos y avisa cuántos fueron. Si falla el guardado,
+  // no se informa nada y se reintenta la próxima vez.
+  const refreshTimeRules = useCallback(() => {
+    const currentTime = new Date()
+    setNow(currentTime)
+
+    const result = reminderService.purgeExpired(currentTime)
+    if (result.ok && result.removed > 0) {
+      setReminders(reminderService.getAll())
+      setPurgedCount((count) => count + result.removed)
+    }
+  }, [])
+
+  useEffect(() => {
+    refreshTimeRules()
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'visible') refreshTimeRules()
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () =>
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [refreshTimeRules])
+
+  const dismissPurgeNotice = useCallback(() => setPurgedCount(0), [])
 
   // Devuelve el resultado del servicio ({ ok, ... }) para que la UI muestre errores.
   const addReminder = useCallback((input) => {
@@ -52,12 +82,24 @@ function RemindersProvider({ children }) {
       completedReminders: sortCompletedReminders(
         reminders.filter((reminder) => reminder.status === REMINDER_STATUS.COMPLETED),
       ),
+      now,
+      purgedCount,
+      dismissPurgeNotice,
       addReminder,
       updateReminder,
       deleteReminder,
       setReminderStatus,
     }),
-    [reminders, addReminder, updateReminder, deleteReminder, setReminderStatus],
+    [
+      reminders,
+      now,
+      purgedCount,
+      dismissPurgeNotice,
+      addReminder,
+      updateReminder,
+      deleteReminder,
+      setReminderStatus,
+    ],
   )
 
   return (

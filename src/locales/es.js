@@ -1,3 +1,5 @@
+import { COMPLETED_RETENTION_DAYS } from '../constants/reminder'
+
 // Textos de la UI de recordatorios en español (idioma por defecto).
 // El selector de idioma y la versión en inglés llegan en la Fase 5.
 const es = {
@@ -15,10 +17,20 @@ const es = {
     edit: 'Editar',
     delete: 'Eliminar',
     completedAt: 'Completado',
+    expiresOn: 'Se elimina el',
+    attention: 'Requiere atención',
+    pendingFor: (days) =>
+      `Pendiente hace ${days} ${days === 1 ? 'día' : 'días'}`,
     complete: 'Completar',
     reopen: 'Volver a pendiente',
     statusError:
       'No se pudo cambiar el estado. Revisá que el navegador permita guardar datos e intentá de nuevo.',
+  },
+  retention: {
+    purgedNotice: (count) =>
+      count === 1
+        ? `Se eliminó 1 recordatorio completado hace más de ${COMPLETED_RETENTION_DAYS} días.`
+        : `Se eliminaron ${count} recordatorios completados hace más de ${COMPLETED_RETENTION_DAYS} días.`,
   },
   dashboard: {
     intro: 'Creá tus recordatorios y organizá tu trabajo.',
