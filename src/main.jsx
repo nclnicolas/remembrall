@@ -7,6 +7,8 @@ import App from './App.jsx'
 import LanguageProvider from './context/LanguageProvider'
 import RemindersProvider from './context/RemindersProvider'
 import ThemeProvider from './context/ThemeProvider'
+// Importado por su efecto: empieza a escuchar `beforeinstallprompt` desde el arranque.
+import './hooks/useInstallPrompt'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
