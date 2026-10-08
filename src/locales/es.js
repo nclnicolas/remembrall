@@ -44,6 +44,18 @@ const es = {
     languageTitle: 'Idioma',
     languageLabel: 'Idioma de la interfaz',
     dataTitle: 'Datos',
+    appTitle: 'Aplicación',
+  },
+  pwa: {
+    updateAvailable: 'Hay una nueva versión disponible.',
+    updateButton: 'Actualizar',
+    offlineReady: 'La app ya puede usarse sin conexión.',
+    installButton: 'Instalar Remembrall',
+    installed: 'Remembrall está instalada en este dispositivo.',
+    iosHint:
+      'Para instalarla, tocá Compartir y elegí "Agregar a pantalla de inicio".',
+    installUnavailable:
+      'Tu navegador no ofrece instalar la app en este momento. Si está disponible, podés hacerlo desde su menú.',
   },
   data: {
     exportButton: 'Exportar recordatorios (CSV)',

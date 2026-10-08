@@ -1,0 +1,8 @@
+.install-app button {
+  min-height: 44px;
+}
+
+.install-app-message {
+  margin: 0;
+  color: var(--text-secondary);
+}

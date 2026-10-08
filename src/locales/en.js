@@ -44,6 +44,17 @@ const en = {
     languageTitle: 'Language',
     languageLabel: 'Interface language',
     dataTitle: 'Data',
+    appTitle: 'App',
+  },
+  pwa: {
+    updateAvailable: 'A new version is available.',
+    updateButton: 'Update',
+    offlineReady: 'The app can now be used offline.',
+    installButton: 'Install Remembrall',
+    installed: 'Remembrall is installed on this device.',
+    iosHint: 'To install it, tap Share and choose "Add to Home Screen".',
+    installUnavailable:
+      "Your browser doesn't offer to install the app right now. If available, you can do it from its menu.",
   },
   data: {
     exportButton: 'Export reminders (CSV)',

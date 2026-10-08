@@ -1,0 +1,26 @@
+.update-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 8px 8px 8px 16px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.update-prompt p {
+  margin: 0;
+}
+
+.update-prompt-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.update-prompt-actions button {
+  min-width: 44px;
+  min-height: 44px;
+}
