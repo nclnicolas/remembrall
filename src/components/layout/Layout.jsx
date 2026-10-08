@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import PurgeNotice from '../reminders/PurgeNotice'
 import ReminderDeleteDialog from '../reminders/ReminderDeleteDialog'
 import ReminderFormDialog from '../reminders/ReminderFormDialog'
+import StatusAnnouncer from '../reminders/StatusAnnouncer'
 import MobileHeader from './MobileHeader'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
@@ -67,6 +68,7 @@ function Layout() {
         reminder={reminderForm.reminder}
         onClose={closeReminderForm}
       />
+      <StatusAnnouncer />
       <ReminderDeleteDialog
         reminder={reminderToDelete}
         onClose={closeDeleteDialog}

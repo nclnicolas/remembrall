@@ -75,6 +75,10 @@ const en = {
     statusError:
       'Could not change the status. Check that your browser allows saving data and try again.',
   },
+  announcements: {
+    completed: (title) => `"${title}" marked as completed.`,
+    reopened: (title) => `"${title}" marked as pending.`,
+  },
   retention: {
     purgedNotice: (count) =>
       count === 1

@@ -76,6 +76,10 @@ const es = {
     statusError:
       'No se pudo cambiar el estado. Revisá que el navegador permita guardar datos e intentá de nuevo.',
   },
+  announcements: {
+    completed: (title) => `"${title}" se marcó como completado.`,
+    reopened: (title) => `"${title}" volvió a pendiente.`,
+  },
   retention: {
     purgedNotice: (count) =>
       count === 1

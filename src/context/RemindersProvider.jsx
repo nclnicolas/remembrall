@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { REMINDER_STATUS, SERVICE_ERRORS } from '../constants/reminder'
 import reminderService from '../services/reminderService'
+import { isExpiredCompleted } from '../utils/reminderRules'
 import {
   sortCompletedReminders,
   sortPendingReminders,
@@ -12,6 +13,8 @@ function RemindersProvider({ children }) {
   // Hora de referencia de las reglas de tiempo; se refresca al volver a la pestaña.
   const [now, setNow] = useState(() => new Date())
   const [purgedCount, setPurgedCount] = useState(0)
+  // Último cambio de estado, para anunciarlo a lectores de pantalla ({ status, title }).
+  const [statusAnnouncement, setStatusAnnouncement] = useState(null)
 
   // Elimina los completados vencidos y avisa cuántos fueron. Si falla el guardado,
   // no se informa nada y se reintenta la próxima vez.
@@ -39,6 +42,7 @@ function RemindersProvider({ children }) {
   }, [refreshTimeRules])
 
   const dismissPurgeNotice = useCallback(() => setPurgedCount(0), [])
+  const clearStatusAnnouncement = useCallback(() => setStatusAnnouncement(null), [])
 
   // Devuelve el resultado del servicio ({ ok, ... }) para que la UI muestre errores.
   const addReminder = useCallback((input) => {
@@ -66,10 +70,15 @@ function RemindersProvider({ children }) {
   }, [])
 
   // Si el recordatorio ya no existe también se relee la lista para reflejarlo.
+  // Solo se anuncia cuando el estado realmente cambió (no al soltar en la misma columna).
   const setReminderStatus = useCallback((id, status) => {
+    const previous = reminderService.getById(id)
     const result = reminderService.setStatus(id, status)
     if (result.ok || result.error === SERVICE_ERRORS.NOT_FOUND) {
       setReminders(reminderService.getAll())
+    }
+    if (result.ok && previous && previous.status !== status) {
+      setStatusAnnouncement({ status, title: previous.title })
     }
     return result
   }, [])
@@ -80,11 +89,17 @@ function RemindersProvider({ children }) {
         reminders.filter((reminder) => reminder.status === REMINDER_STATUS.PENDING),
       ),
       completedReminders: sortCompletedReminders(
-        reminders.filter((reminder) => reminder.status === REMINDER_STATUS.COMPLETED),
+        reminders.filter(
+          (reminder) =>
+            reminder.status === REMINDER_STATUS.COMPLETED &&
+            !isExpiredCompleted(reminder, now),
+        ),
       ),
       now,
       purgedCount,
       dismissPurgeNotice,
+      statusAnnouncement,
+      clearStatusAnnouncement,
       addReminder,
       updateReminder,
       deleteReminder,
@@ -95,6 +110,8 @@ function RemindersProvider({ children }) {
       now,
       purgedCount,
       dismissPurgeNotice,
+      statusAnnouncement,
+      clearStatusAnnouncement,
       addReminder,
       updateReminder,
       deleteReminder,
