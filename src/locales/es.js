@@ -43,6 +43,18 @@ const es = {
     },
     languageTitle: 'Idioma',
     languageLabel: 'Idioma de la interfaz',
+    dataTitle: 'Datos',
+  },
+  data: {
+    exportButton: 'Exportar recordatorios (CSV)',
+    exportEmpty: 'No hay recordatorios para exportar.',
+    fileNamePrefix: 'remembrall-recordatorios',
+    headers: {
+      title: 'Título',
+      description: 'Descripción',
+      dueDate: 'Fecha estimada',
+      status: 'Estado',
+    },
   },
   reminders: {
     create: 'Crear recordatorio',

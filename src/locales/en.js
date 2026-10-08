@@ -43,6 +43,18 @@ const en = {
     },
     languageTitle: 'Language',
     languageLabel: 'Interface language',
+    dataTitle: 'Data',
+  },
+  data: {
+    exportButton: 'Export reminders (CSV)',
+    exportEmpty: 'There are no reminders to export.',
+    fileNamePrefix: 'remembrall-reminders',
+    headers: {
+      title: 'Title',
+      description: 'Description',
+      dueDate: 'Due date',
+      status: 'Status',
+    },
   },
   reminders: {
     create: 'Create reminder',

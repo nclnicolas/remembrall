@@ -1,3 +1,4 @@
+import DataExport from '../../components/settings/DataExport'
 import LanguageSelector from '../../components/settings/LanguageSelector'
 import ThemeSelector from '../../components/settings/ThemeSelector'
 import useTexts from '../../hooks/useTexts'
@@ -16,6 +17,10 @@ function Settings() {
       <section>
         <h2>{texts.settings.languageTitle}</h2>
         <LanguageSelector />
+      </section>
+      <section>
+        <h2>{texts.settings.dataTitle}</h2>
+        <DataExport />
       </section>
     </div>
   )
