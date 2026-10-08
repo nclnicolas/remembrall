@@ -1,29 +1,27 @@
 import { THEMES } from '../../constants/theme'
+import useTexts from '../../hooks/useTexts'
 import useTheme from '../../hooks/useTheme'
 import './ThemeSelector.css'
 
-const THEME_OPTIONS = [
-  { value: THEMES.LIGHT, label: 'Light' },
-  { value: THEMES.DARK, label: 'Dark' },
-  { value: THEMES.SYSTEM, label: 'System' },
-]
+const THEME_OPTIONS = [THEMES.LIGHT, THEMES.DARK, THEMES.SYSTEM]
 
 function ThemeSelector() {
+  const texts = useTexts()
   const { theme, setTheme } = useTheme()
 
   return (
     <fieldset className="theme-selector">
-      <legend>Theme</legend>
+      <legend>{texts.settings.themeLabel}</legend>
       {THEME_OPTIONS.map((option) => (
-        <label key={option.value} className="theme-selector-option">
+        <label key={option} className="theme-selector-option">
           <input
             type="radio"
             name="theme"
-            value={option.value}
-            checked={theme === option.value}
-            onChange={() => setTheme(option.value)}
+            value={option}
+            checked={theme === option}
+            onChange={() => setTheme(option)}
           />
-          {option.label}
+          {texts.settings.themes[option]}
         </label>
       ))}
     </fieldset>

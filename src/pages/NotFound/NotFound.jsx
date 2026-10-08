@@ -1,8 +1,12 @@
+import useTexts from '../../hooks/useTexts'
+
 function NotFound() {
+  const texts = useTexts()
+
   return (
     <div>
-      <h1>404</h1>
-      <p>La página que buscás no existe.</p>
+      <h1>{texts.pages.notFound.title}</h1>
+      <p>{texts.pages.notFound.message}</p>
     </div>
   )
 }

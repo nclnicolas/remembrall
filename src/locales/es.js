@@ -1,11 +1,48 @@
 import { COMPLETED_RETENTION_DAYS } from '../constants/reminder'
 
-// Textos de la UI de recordatorios en español (idioma por defecto).
-// El selector de idioma y la versión en inglés llegan en la Fase 5.
+// Textos de la interfaz en español (idioma por defecto).
+// locales/en.js debe mantener exactamente la misma estructura (lo verifica un test).
 const es = {
   common: {
     close: 'Cerrar',
     cancel: 'Cancelar',
+  },
+  nav: {
+    dashboard: 'Dashboard',
+    reminders: 'Recordatorios',
+    pending: 'Pendientes',
+    completed: 'Completados',
+    settings: 'Configuración',
+    newReminder: '+ Nuevo recordatorio',
+    openMenu: 'Abrir menú',
+    closeMenu: 'Cerrar menú',
+  },
+  pages: {
+    pending: {
+      title: 'Pendientes',
+      description: 'Recordatorios pendientes.',
+    },
+    completed: {
+      title: 'Completados',
+      description: 'Recordatorios completados.',
+    },
+    notFound: {
+      title: '404',
+      message: 'La página que buscás no existe.',
+    },
+  },
+  settings: {
+    title: 'Configuración',
+    description: 'Configuración de Remembrall.',
+    appearanceTitle: 'Apariencia',
+    themeLabel: 'Tema',
+    themes: {
+      light: 'Claro',
+      dark: 'Oscuro',
+      system: 'Sistema',
+    },
+    languageTitle: 'Idioma',
+    languageLabel: 'Idioma de la interfaz',
   },
   reminders: {
     create: 'Crear recordatorio',
@@ -33,6 +70,7 @@ const es = {
         : `Se eliminaron ${count} recordatorios completados hace más de ${COMPLETED_RETENTION_DAYS} días.`,
   },
   dashboard: {
+    title: 'Dashboard',
     intro: 'Creá tus recordatorios y organizá tu trabajo.',
     pendingTitle: 'Pendientes',
     completedTitle: 'Completados',

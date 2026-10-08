@@ -14,7 +14,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1>{texts.dashboard.title}</h1>
       <p>{texts.dashboard.intro}</p>
 
       <div className="dashboard-board">

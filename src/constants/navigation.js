@@ -6,14 +6,15 @@ export const ROUTES = {
   SETTINGS: '/settings',
 }
 
+// labelKey es la clave del texto en `nav` de los diccionarios de locales.
 export const NAV_ITEMS = [
-  { path: ROUTES.DASHBOARD, label: 'Dashboard' },
+  { path: ROUTES.DASHBOARD, labelKey: 'dashboard' },
   {
-    label: 'Reminders',
+    labelKey: 'reminders',
     children: [
-      { path: ROUTES.REMINDERS_PENDING, label: 'Pending' },
-      { path: ROUTES.REMINDERS_COMPLETED, label: 'Completed' },
+      { path: ROUTES.REMINDERS_PENDING, labelKey: 'pending' },
+      { path: ROUTES.REMINDERS_COMPLETED, labelKey: 'completed' },
     ],
   },
-  { path: ROUTES.SETTINGS, label: 'Settings' },
+  { path: ROUTES.SETTINGS, labelKey: 'settings' },
 ]

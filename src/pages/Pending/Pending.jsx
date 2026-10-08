@@ -11,8 +11,8 @@ function Pending() {
 
   return (
     <div>
-      <h1>Pending</h1>
-      <p>Recordatorios pendientes.</p>
+      <h1>{texts.pages.pending.title}</h1>
+      <p>{texts.pages.pending.description}</p>
       <ReminderList
         reminders={pendingReminders}
         emptyMessage={texts.reminders.emptyPending}

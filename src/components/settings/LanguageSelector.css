@@ -1,0 +1,29 @@
+.language-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.language-selector legend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--text-secondary);
+}
+
+.language-selector-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.language-selector-option input {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: var(--primary);
+}

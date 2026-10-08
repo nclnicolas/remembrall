@@ -10,8 +10,8 @@ function Completed() {
 
   return (
     <div>
-      <h1>Completed</h1>
-      <p>Recordatorios completados.</p>
+      <h1>{texts.pages.completed.title}</h1>
+      <p>{texts.pages.completed.description}</p>
       <ReminderList
         reminders={completedReminders}
         emptyMessage={texts.reminders.emptyCompleted}

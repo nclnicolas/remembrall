@@ -1,9 +1,18 @@
+import { LANGUAGES } from '../constants/language'
+import en from '../locales/en'
 import es from '../locales/es'
+import useLanguage from './useLanguage'
 
-// Por ahora devuelve siempre español. Cuando exista el selector de idioma (Fase 5),
-// este hook pasa a devolver los textos del idioma elegido sin tocar los componentes.
+const TEXTS_BY_LANGUAGE = {
+  [LANGUAGES.ES]: es,
+  [LANGUAGES.EN]: en,
+}
+
+// Devuelve los textos de la interfaz en el idioma elegido.
+// El contenido que escribe el usuario (títulos, descripciones) no se traduce.
 function useTexts() {
-  return es
+  const { language } = useLanguage()
+  return TEXTS_BY_LANGUAGE[language]
 }
 
 export default useTexts
