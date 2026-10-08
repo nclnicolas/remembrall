@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { REMINDER_STATUS, SERVICE_ERRORS } from '../../constants/reminder'
 import useTexts from '../../hooks/useTexts'
 import { formatDateOnly, formatTimestamp } from '../../utils/date'
+import { downloadFile } from '../../utils/download'
+import { buildReminderIcs, getIcsFileName } from '../../utils/reminderIcs'
 import {
   getExpirationTimestamp,
   getPendingDays,
@@ -22,6 +24,8 @@ function ReminderCard({
   const isCompleted = reminder.status === REMINDER_STATUS.COMPLETED
   const requiresAttention = now !== null && needsAttention(reminder, now)
   const expirationTimestamp = getExpirationTimestamp(reminder)
+  // El evento de calendario necesita fecha estimada; los completados ya no lo requieren.
+  const canAddToCalendar = !isCompleted && Boolean(reminder.dueDate)
 
   // Pendiente pasa a completado y viceversa. Si sale bien, la card cambia de lista.
   function handleStatusChange() {
@@ -30,6 +34,11 @@ function ReminderCard({
       : REMINDER_STATUS.COMPLETED
     const result = onStatusChange(reminder.id, nextStatus)
     setHasStatusError(!result.ok && result.error === SERVICE_ERRORS.STORAGE)
+  }
+
+  function handleAddToCalendar() {
+    const ics = buildReminderIcs(reminder)
+    if (ics) downloadFile(ics, getIcsFileName(reminder), 'text/calendar;charset=utf-8')
   }
 
   const statusActionLabel = isCompleted
@@ -87,7 +96,7 @@ function ReminderCard({
         </p>
       )}
 
-      {(onStatusChange || onEdit || onDelete) && (
+      {(onStatusChange || canAddToCalendar || onEdit || onDelete) && (
         <div className="reminder-card-actions">
           {onStatusChange && (
             <button
@@ -96,6 +105,15 @@ function ReminderCard({
               aria-label={`${statusActionLabel}: ${reminder.title}`}
             >
               {statusActionLabel}
+            </button>
+          )}
+          {canAddToCalendar && (
+            <button
+              type="button"
+              onClick={handleAddToCalendar}
+              aria-label={`${texts.reminders.addToCalendar}: ${reminder.title}`}
+            >
+              {texts.reminders.addToCalendar}
             </button>
           )}
           {onEdit && (

@@ -59,6 +59,7 @@ const es = {
     pendingFor: (days) =>
       `Pendiente hace ${days} ${days === 1 ? 'día' : 'días'}`,
     complete: 'Completar',
+    addToCalendar: 'Agregar al calendario',
     reopen: 'Volver a pendiente',
     statusError:
       'No se pudo cambiar el estado. Revisá que el navegador permita guardar datos e intentá de nuevo.',

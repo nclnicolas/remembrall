@@ -58,6 +58,7 @@ const en = {
     attention: 'Needs attention',
     pendingFor: (days) => `Pending for ${days} ${days === 1 ? 'day' : 'days'}`,
     complete: 'Complete',
+    addToCalendar: 'Add to calendar',
     reopen: 'Mark as pending',
     statusError:
       'Could not change the status. Check that your browser allows saving data and try again.',
